@@ -1,0 +1,16 @@
+.Engineering{
+    width: 100%;
+    margin: 0px auto;
+    overflow: hidden;
+}
+.Banner{
+    width: 97%;
+    display: flex;
+    position: absolute;
+    padding-left: 1.25%;
+    padding-top: 15vh;
+    justify-content: space-evenly;
+}
+.book-section{
+    width: 100%;
+}

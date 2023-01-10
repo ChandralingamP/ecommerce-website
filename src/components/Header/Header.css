@@ -1,12 +1,15 @@
 .Header{
-    width: 100wh;
-    background-color: aqua;
+    width: 100vw;
     height: fit-content;
+    position: fixed;
+    z-index: 10;
+    background-color: rgb(125, 124, 124);
+
 }
 
-/* search bar */
-
 .searchBar{
+    background-color: rgb(164, 164, 164);
+    color: aliceblue;
     padding: 8px 30px;
     display: flex;
     align-items: center;
@@ -47,6 +50,7 @@
     justify-content: space-around; 
 }
 .navBar > button{
+    font-size: 17px;
     margin: 5px 0px;
     padding: 4px;
     height: 30px;

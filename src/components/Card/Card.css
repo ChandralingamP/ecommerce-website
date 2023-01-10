@@ -1,0 +1,23 @@
+.book-card{
+    width: 95%;
+    margin: 7px 5px; 
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: aqua;
+    height: 280px !important;
+    transition:height 0.5s; 
+    -webkit-transition:height 0.5s; 
+}
+.book-card:hover{
+    /* height: 285px; */
+    z-index: 2;
+}
+.book-card>img {
+    height: 73%;
+    border-radius: 10px;
+    margin: 10px 5%;
+    margin-bottom: 5px !important;
+    width: 90%;
+}
