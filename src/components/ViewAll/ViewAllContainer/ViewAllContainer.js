@@ -9,7 +9,7 @@ function ViewAllContainer() {
         {
           EngineeringBooks.map((item, key) => {
             return (
-              <Card key={key} item={item}/>
+              <Card name={"book-card"} key={key} item={item}/>
             );
           })
         }

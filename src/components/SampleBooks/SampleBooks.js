@@ -1,6 +1,6 @@
 import React from 'react'
 import './SampleBooks.css'
-import {EngineeringBooks} from '../../Globalconstants/EngineeringBooks'
+import { EngineeringBooks } from '../../Globalconstants/EngineeringBooks'
 import Card from '../Card/Card'
 import { Link } from 'react-router-dom'
 function SampleBooks() {
@@ -12,9 +12,9 @@ function SampleBooks() {
                     <Link to='EngineeringViewAll'>View All</Link>                </div>
                 <div className="Sample-Cards">
                     {
-                        EngineeringBooks.map((item,key)=>{
+                        EngineeringBooks.map((item, key) => {
                             return (
-                                <Card key={key} item={item}/>
+                                <Card name={"view-card"} key={key} item={item} />
                             )
                         })
                     }
