@@ -1,6 +1,6 @@
 import harryPotterImg from '../assets/book.png' 
 
-export const EngineeringBooks = [
+export  const EngineeringBooks = [
     {
         id: "001",
         bookName : "Harry potter",

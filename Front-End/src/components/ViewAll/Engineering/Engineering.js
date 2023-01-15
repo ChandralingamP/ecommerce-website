@@ -9,7 +9,7 @@ function EngineeringViewAll() {
         <Header/>
         <div className="ViewAll">
         <SideBar/>
-        <ViewAllContainer/>
+        <ViewAllContainer name="Engineering"/>
         </div>
     </div>
   )

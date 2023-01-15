@@ -5,6 +5,7 @@ const NavBar =()=> {
   const navigate = useNavigate();
   const location = useLocation();
   const NavTO = (item) =>{
+    // let path = item;
     console.log(item);
     if(location.pathname === "/"){
 

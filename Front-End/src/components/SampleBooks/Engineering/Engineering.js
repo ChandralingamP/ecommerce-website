@@ -10,9 +10,10 @@ function Engineering() {
       <div className="Banner">
         <SideBar />
         <div className="book-section">
-          <SampleBooks />
-          <SampleBooks />
-          <SampleBooks />
+          <SampleBooks subject={"Computer Science"}/>
+          <SampleBooks subject={"ECE"}/>
+          <SampleBooks subject={"Mechanical"}/>
+          <SampleBooks subject={"EEE"}/>
         </div>
       </div>
     </div>

@@ -3,13 +3,14 @@ import './SampleBooks.css'
 import { EngineeringBooks } from '../../Globalconstants/EngineeringBooks'
 import Card from '../Card/Card'
 import { Link } from 'react-router-dom'
-function SampleBooks() {
+function SampleBooks({ subject }) {
     return (
-        <>
+        
             <div className='SampleBooks'>
                 <div className="sampleBar">
-                    <h3>Computer Science</h3>
-                    <Link to='EngineeringViewAll'>View All</Link>                </div>
+                    <h3>{subject}</h3>
+                    <Link to='EngineeringViewAll'>View All</Link>
+                </div>
                 <div className="Sample-Cards">
                     {
                         EngineeringBooks.map((item, key) => {
@@ -20,7 +21,7 @@ function SampleBooks() {
                     }
                 </div>
             </div>
-        </>
+        
     )
 }
 
