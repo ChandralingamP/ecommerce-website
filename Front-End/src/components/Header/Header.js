@@ -2,10 +2,10 @@ import React from 'react'
 import './Header.css'
 import NavBar from './NavBar'
 import SearchBar from './SearchBar'
-function Header() {
+function Header({showCart}) {
     return (
         <div className='Header'>
-            <SearchBar/>
+            <SearchBar showCart={showCart}/>
             <NavBar/> 
         </div>
     )

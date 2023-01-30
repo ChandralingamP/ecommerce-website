@@ -1,19 +1,17 @@
 import React from 'react'
-import {navLinks} from '../../Globalconstants/GlobalConstants'
+import {navLinks} from '../../assets/Globalconstants/GlobalConstants'
 import {useNavigate,useLocation} from 'react-router-dom';
 const NavBar =()=> {
   const navigate = useNavigate();
   const location = useLocation();
   const NavTO = (item) =>{
-    // let path = item;
     console.log(item);
     if(location.pathname === "/"){
-
       navigate(item);
-    }else if (location.pathname === "/"+item){
+    }else if (location.pathname === "/"+item.toLowerCase()){
       navigate("/")
     }else{
-      navigate("/"+item)
+      navigate("/"+item.toLowerCase());
     }
   }
   return (

@@ -1,15 +1,28 @@
 const express = require("express")
-const api = require('./Routes/engineering')
-let recentBooks = require('./BookData/RecentBooks')
-const app = express()
-var cors = require('cors');
-app.use(cors());
-app.use("/engineering",api);
-app.get("/",(req,res)=>{
-    console.log(recentBooks);
-    res.send(recentBooks);
-})
+const cors = require('cors')
+const {default : mongoose} = require('mongoose');
+require('dotenv').config();
 
-app.listen(5000,()=>{
+const app = express();
+const port = 5000;
+app.use(cors());
+app.use(express.json());
+
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri);
+const connection = mongoose.connection;
+
+connection.once('open',()=>{
+    console.log("Connection made");
+});
+
+const cartApi = require('./Routes/cart')
+const cartItemApi = require('./Routes/cartItem')
+const api = require('./Routes/books')
+app.use("/cartItems",cartItemApi);
+app.use("/books",api);
+app.use("/cart",cartApi);
+
+app.listen(port,()=>{
     console.log("listinging on port 5000");
 })

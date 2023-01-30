@@ -1,11 +1,26 @@
 import React from 'react'
 import "./Header.css"
-function SearchBar() {
+import { useNavigate, useLocation } from 'react-router-dom';
+function SearchBar({showCart}) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const NavTO = (item) => {
+        // let path = item;
+        console.log(item);
+        if (location.pathname === "/") {
+
+            navigate(item);
+        } else if (location.pathname === "/" + item) {
+            navigate("/")
+        } else {
+            navigate("/" + item)
+        }
+    }
     return (
         <div className='searchBar'>
             <div className="left">
                 <div className="logo">
-                    LoGo
+                <button onClick={()=>NavTO("admin")}>Logo</button>
                 </div>
                 <div className="searchEngine" >
                     <input type="text" placeholder='search....' />
@@ -13,8 +28,8 @@ function SearchBar() {
                 </div>
             </div>
             <div className="right">
-                <div className="cart">
-                    Add
+                <div className="addCart">
+                    <button className="" onClick={(e)=>showCart(e)}>Add</button>
                 </div>
             </div>
         </div>

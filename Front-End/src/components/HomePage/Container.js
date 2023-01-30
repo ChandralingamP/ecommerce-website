@@ -1,29 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '../Card/Card'
 import axios from 'axios'
-import {EngineeringBooks} from '../../Globalconstants/EngineeringBooks'
+import { useLocation } from 'react-router-dom';
 import './Container.css'
-function Container() {
-  let bookData = "";
+function Container({ hideCart, changeFlag }) {
+  const [bookData, setBookData] = useState("");
+  const location = useLocation();
+  const path = location.pathname;
   useEffect(() => {
-    axios({ method: 'get', url: 'http://localhost:5000/' }).then((res) => res.data).then((data) =>{bookData= data ;console.log(bookData)});
-  }, [])
-  // useEffect(()=>{
-
-  // },[bookData])
+    console.log(path);
+    if (path === "/") {
+      axios({ method: 'get', url: 'http://localhost:5000/cart/items' }).then((res) => res.data).then((data) => { setBookData(data) });
+    } else {
+      const category = path;
+      let seacrhCategory = category.slice(1);
+      const url = "/books/items";
+      axios.post(url, { category: seacrhCategory }).then((res) => res.data).then(data => setBookData(data));
+    }
+  }, [path])
   return (
-    <div className='container'>
+    <div onClick={() => hideCart()} className='container'>
       <h2 id="home-title">Continue Shopping....</h2>
       <div className="cards">
-          {bookData && bookData.map((item, key) => {
-            console.log(item);
-            return (
-              <Card name={"book-card"} key={key} item={item} />
-            );
-          })
-          }
-        </div>
- 
+        {bookData && bookData.map((item, key) => {
+          return (
+            <Card name={"book-card"} key={key} item={item} changeFlag={changeFlag} />
+          );
+        })
+        }
+      </div>
     </div>
   )
 }
