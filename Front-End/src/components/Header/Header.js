@@ -6,7 +6,6 @@ function Header({showCart}) {
     return (
         <div className='Header'>
             <SearchBar showCart={showCart}/>
-            <NavBar/> 
         </div>
     )
 }

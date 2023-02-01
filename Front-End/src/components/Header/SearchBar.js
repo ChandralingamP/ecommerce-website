@@ -19,12 +19,12 @@ function SearchBar({showCart}) {
     return (
         <div className='searchBar'>
             <div className="left">
-                <div className="logo">
+                <div className="logo font-semibold">
                 <button onClick={()=>NavTO("admin")}>Logo</button>
                 </div>
                 <div className="searchEngine" >
-                    <input type="text" placeholder='search....' />
-                    <div className="icon">O</div>
+                    <input className='lg:text-black text-gray-900 bg-transparent' type="text" placeholder='search....' />
+                    <div className="icon ">O</div>
                 </div>
             </div>
             <div className="right">
