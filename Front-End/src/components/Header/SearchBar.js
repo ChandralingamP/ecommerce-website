@@ -1,14 +1,12 @@
 import React from 'react'
-import "./Header.css"
+import cartImg from "../../assets/cart.png"
 import { useNavigate, useLocation } from 'react-router-dom';
 function SearchBar({showCart}) {
     const navigate = useNavigate();
     const location = useLocation();
     const NavTO = (item) => {
-        // let path = item;
         console.log(item);
         if (location.pathname === "/") {
-
             navigate(item);
         } else if (location.pathname === "/" + item) {
             navigate("/")
@@ -19,7 +17,7 @@ function SearchBar({showCart}) {
     return (
         <div className='searchBar'>
             <div className="left">
-                <div className="logo font-semibold">
+                <div className="logo">
                 <button onClick={()=>NavTO("admin")}>Logo</button>
                 </div>
                 <div className="searchEngine" >
@@ -29,7 +27,7 @@ function SearchBar({showCart}) {
             </div>
             <div className="right">
                 <div className="addCart">
-                    <button className="" onClick={(e)=>showCart(e)}>Add</button>
+                    <img onClick={(e)=>showCart(e)} src={cartImg} alt="" srcset="" />
                 </div>
             </div>
         </div>

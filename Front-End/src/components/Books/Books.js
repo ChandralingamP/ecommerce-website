@@ -3,15 +3,22 @@ import Header from '../Header/Header'
 import Cart from '../Cart/cart'
 import Container from './Container'
 import NavBar from '../Header/NavBar'
-function Home({flag,show,showCart,hideCart,changeFlag}) {
+function Books({ flag, show, showCart, hideCart, changeFlag }) {
+  
   return (
     <div>
-      <Header showCart={showCart} />
-      <NavBar/>
-      <Container hideCart={hideCart} changeFlag={changeFlag}/>
-      <Cart show={show} flag={flag } changeFlag={changeFlag}/>
+      <Header color={""} showCart={showCart} />
+      <div className="cart">
+        <Cart show={show} flag={flag} changeFlag={changeFlag} />
+      </div>
+      <div onClick={() => hideCart()} className="flex flex-row">
+        <NavBar />
+        <div className="books w-full">
+          <Container changeFlag={changeFlag} />
+        </div>
+      </div>
     </div>
   )
 }
 
-export default Home
+export default Books

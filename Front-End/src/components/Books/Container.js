@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../Card/Card'
 import axios from 'axios'
+// import booii from '../../assets/book.png'
 import { useLocation } from 'react-router-dom';
-import './Container.css'
 function Container({ hideCart, changeFlag }) {
   const [bookData, setBookData] = useState("");
   const location = useLocation();
-  const path = location.pathname;
+  // const item = { bookImg: booii, bookName: "Harry Potter", price: "200", _id: 1 };
+  const category = location.pathname;
+  let seacrhCategory = category.slice(1);
+  seacrhCategory = seacrhCategory.charAt(0).toUpperCase() + category.slice(2);
   useEffect(() => {
-    console.log(path);
-    if (path === "/") {
+    console.log(category);
+    if (category === "/all") {
       axios({ method: 'get', url: 'http://localhost:5000/cart/items' }).then((res) => res.data).then((data) => { setBookData(data) });
     } else {
-      const category = path;
-      let seacrhCategory = category.slice(1);
       const url = "/books/items";
       axios.post(url, { category: seacrhCategory }).then((res) => res.data).then(data => setBookData(data));
     }
-  }, [path])
+  }, [category])
   return (
-    <div onClick={() => hideCart()} className='container'>
-      <h2 id="home-title">Continue Shopping....</h2>
-      <div className="cards">
+    <div className='bg-gray-300 flex flex-col pb-8'>
+      <h2 className='self-center mt-3 font-semibold text-4xl'>{seacrhCategory} Books</h2>
+      <div className="flex flex-row flex-wrap mx-auto w-4/5">
         {bookData && bookData.map((item, key) => {
           return (
             <Card name={"book-card"} key={key} item={item} changeFlag={changeFlag} />
@@ -32,5 +33,4 @@ function Container({ hideCart, changeFlag }) {
     </div>
   )
 }
-
 export default Container
