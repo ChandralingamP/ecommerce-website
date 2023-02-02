@@ -8,7 +8,7 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
-const uri = process.env.ATLAS_URI;
+const uri = "mongodb://127.0.0.1:27017/BookStore?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2";
 mongoose.connect(uri);
 const connection = mongoose.connection;
 
@@ -16,12 +16,10 @@ connection.once('open',()=>{
     console.log("Connection made");
 });
 
-const cartApi = require('./Routes/cart')
-const cartItemApi = require('./Routes/cartItem')
-const api = require('./Routes/books')
-app.use("/cartItems",cartItemApi);
-app.use("/books",api);
-app.use("/cart",cartApi);
+const cart = require('./Routes/cart')
+const books = require('./Routes/books')
+app.use("/cart",cart);
+app.use("/books",books);
 
 app.listen(port,()=>{
     console.log("listinging on port 5000");
