@@ -6,8 +6,9 @@ function Container({ changeFlag, showCart, min, max }) {
   const [bookData, setBookData] = useState("");
   const location = useLocation();
   const category = location.pathname;
-  let seacrhCategory = category.slice(1);
+  let seacrhCategory = category.slice(1).toLocaleLowerCase();
   seacrhCategory = seacrhCategory.charAt(0).toUpperCase() + category.slice(2);
+  console.log(seacrhCategory);
   useEffect(() => {
     if (category === "/all") {
       axios({ method: 'get', url: 'http://localhost:5000/books/' }).then((res) => res.data).then((data) => { setBookData(data) });

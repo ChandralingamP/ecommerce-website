@@ -31,7 +31,6 @@ function App() {
           <Route key='stateBoard' path="stateboard" element={<Books show={show} flag={flag} showCart={showCart} hideCart={hideCart} changeFlag={changeFlag} />} />
           <Route key='competitive' path="competitive" element={<Books show={show} flag={flag} showCart={showCart} hideCart={hideCart} changeFlag={changeFlag} />} />
           <Route key='story' path="story" element={<Books show={show} flag={flag} showCart={showCart} hideCart={hideCart} changeFlag={changeFlag} />} />
-          <Route key='others' path="others" element={<Books show={show} flag={flag} showCart={showCart} hideCart={hideCart} changeFlag={changeFlag} />} />
         </Routes>
       </Router>
     </div>

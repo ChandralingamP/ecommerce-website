@@ -13,7 +13,7 @@ function Header({ showCart, color }) {
         showMenu();
         if (item == '/home') {
             if (path !== '/') {
-                navigate(-1);
+                navigate('/');
             }
         } else if (path !== '/' + item.toLowerCase()) {
             navigate("/" + item.toLowerCase());
