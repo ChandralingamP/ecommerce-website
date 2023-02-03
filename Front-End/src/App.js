@@ -20,7 +20,6 @@ function App() {
     fetchBooks();
   }, [])
   const getBooks = async (type, min, max) => {
-    console.log(type);
     if (type === 'home') {
       setBookData(books.slice(1, 9));
     } else if (type === 'All') {

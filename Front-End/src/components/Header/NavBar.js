@@ -28,7 +28,7 @@ function NavBar({ priceRange,setSearchBook }) {
     }
   }
   return (
-    <div className='relative lg:h-full lg:w-1/5 w-full'>
+    <div className='relative lg:w-1/5 w-full'>
       <div className="absolute navBar justify-between lg:pb-28  lg:px-0 px-10 flex lg:flex-col w-full py-3 lg:py-0 p-2 bg-gray-100">
         <img onClick={() => showFilter()} className='lg:hidden h-8' src={filterImg} alt="=" />
         <div className="hidden lg:block">

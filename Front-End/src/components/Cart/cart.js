@@ -12,10 +12,14 @@ function Cart() {
   }
   const removeCart = async (item) => {
     await axios.post("/cart/remove", { item: item }).then((res) => res.data).then(data => changeFlag());
+    setCartData("");
+  }
+  const fetch = () =>{
+    axios.get('/cart/items/').then((res)=>res.data).then((data)=>setCartData(data));
   }
   useEffect(() => {
-    axios.get('/cart/items/').then((res)=>res.data).then((data)=>setCartData(data));
-  }, [flag]);
+    fetch();
+  }, [flag,cartData]);
   const value = show ? 'block' : 'hidden';
   return (
     <div>

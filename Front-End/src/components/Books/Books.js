@@ -39,7 +39,7 @@ function Books() {
         <NavBar priceRange={priceRange} setSearchBook={setSearchBook} />
         <div className="books w-full">
           {
-            searchBook && <div className='lg:w-1/4 mx-auto'> {<Card item={searchBook.item}/>}</div>
+            searchBook && <div className='lg:w-1/4 bg-gray-300 rounded-md mx-auto'> {<Card item={searchBook.item}/>}</div>
           }
           {
             !searchBook && <Container min={min} max={max} />

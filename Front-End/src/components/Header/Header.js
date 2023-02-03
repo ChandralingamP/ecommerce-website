@@ -23,7 +23,7 @@ function Header({color}) {
             setResults("");
         } else {
             let payload = e.target.value;
-            axios.post('/books/search', { payload: payload }).then((res) => res.data).then((data) => { setResults(data.payload); console.log(data) });
+            axios.post('/books/search', { payload: payload }).then((res) => res.data).then((data) => { setResults(data.payload) });
         }
     }
     useEffect(() => {
