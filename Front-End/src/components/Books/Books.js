@@ -1,31 +1,52 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header'
 import Cart from '../Cart/cart'
 import Container from './Container'
 import NavBar from '../Header/NavBar'
-function Books({ flag, show, showCart, hideCart, changeFlag }) {
-  const [min,setMin] = useState(0);
-  const [max,setMax] = useState(3000);
-  function priceRange(m,ma){
+import { useContext } from 'react'
+import axios from 'axios';
+import { UserContext } from '../UserContext/UserContext'
+import Card from '../Card/Card';
+function Books() {
+  const { getBooks, setSearchBook,searchBook, setBooks, books } = useContext(UserContext);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(3000);
+  function priceRange(m, ma) {
     setMin(m);
     setMax(ma);
   }
-  useEffect(()=>{
-    console.log(min,max);
-  },[min]);
+  let [count, setC] = useState(0);
+  const location = useLocation();
+  const category = location.pathname;
+  let seacrhCategory = category.slice(1).toLocaleLowerCase();
+  seacrhCategory = seacrhCategory.charAt(0).toUpperCase() + category.slice(2);
+  useEffect(() => {
+    if (books) {
+      getBooks(seacrhCategory, min, max);
+    } else {
+      axios.get('/books').then((res) => res.data).then((data) => setBooks(data));
+      setC(count + 1);
+    }
+  }, [category, count]);
   return (
     <div className='relative'>
-      <Header showCart={showCart} />
+      <Header color={"sdf"}/>
       <div className="cart">
-        <Cart show={show} flag={flag} changeFlag={changeFlag} />
+        <Cart />
       </div>
       <div className="flex lg:flex-row flex-col">
-          <NavBar priceRange={priceRange}/>
+        <NavBar priceRange={priceRange} setSearchBook={setSearchBook} />
         <div className="books w-full">
-          <Container min={min} max={max}  changeFlag={changeFlag} />
+          {
+            searchBook && <div className='lg:w-1/4 mx-auto'> {<Card item={searchBook.item}/>}</div>
+          }
+          {
+            !searchBook && <Container min={min} max={max} />
+          }
         </div>
       </div>
-      <Cart hideCart={hideCart} show={show} flag={flag} changeFlag={changeFlag} />
+      <Cart />
     </div>
   )
 }

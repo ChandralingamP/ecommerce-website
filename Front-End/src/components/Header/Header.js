@@ -1,59 +1,59 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import cartImg from "../../assets/cart.png"
+import axios from 'axios'
 import cartWImg from "../../assets/cartW.png"
-import menu from '../../assets/menu.png'
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useState } from 'react';
-function Header({ showCart, color }) {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const path = location.pathname;
-    const [display, setDisplay] = useState("hidden");
-    const NavTO = (item) => {
-        showMenu();
-        if (item == '/home') {
-            if (path !== '/') {
-                navigate('/');
-            }
-        } else if (path !== '/' + item.toLowerCase()) {
-            navigate("/" + item.toLowerCase());
-        }
-    }
-    const showMenu = () => {
-        if (display === "block") {
-            setDisplay("hidden");
-        } else {
-            setDisplay("block");
-        }
-    }
+import {  useLocation } from 'react-router-dom';
+import { UserContext } from '../UserContext/UserContext';
+function Header({color}) {
+    const {showCart,setSearchBook,changeFlag} = useContext(UserContext);
     const img = (color !== "") ? cartImg : cartWImg;
     const value = (color !== "") ? "" : 'text-white';
+    const location = useLocation();
+    const path = location.pathname;
+    const [input,setInput] = useState("");
+    const [results, setResults] = useState("");
+    const setSelectedBookd = (item) =>{
+        setResults("");
+        setInput("");
+        setSearchBook({item});
+        changeFlag();
+    }
+    const Change = async (e) => {
+        if (e.target.value == "") {
+            setResults("");
+        } else {
+            let payload = e.target.value;
+            axios.post('/books/search', { payload: payload }).then((res) => res.data).then((data) => { setResults(data.payload); console.log(data) });
+        }
+    }
+    useEffect(() => {
+        setResults("");
+    }, [path]);
     return (
-        <div className='relative bottom-0 mb-1'>
-            <div className={"Header font-sans lg:pt-2 pt-4 lg:h-20 lg:w-full items-center justify-between lg:px-16 px-10 flex bg-transparent "+value}>
-                <div className={"nav hidden text-xl lg:flex w-1/3 justify-around "}>
-                    <h2 style={{ cursor: "pointer" }} onClick={() => NavTO('/home')}>Home</h2>
-                    <h2 style={{ cursor: "pointer" }} onClick={() => NavTO('engineering')}>Products</h2>
-                    <h2 style={{ cursor: "pointer" }} >About</h2>
-                </div>
-                <div onClick={() => showMenu()} className="flex lg:h-10 h-8 lg:hidden">
-                    <img src={menu} alt="" srcset="" />
-                </div>
-                <div className="logo lg:text-4xl md:text-3xl text-xl italic font-extrabold ">
+        <div className='relative w-full mb-1 flex flex-col justify-center justify-item-center'>
+            <div className={"Header font-sans lg:pt-2 pt-4 lg:h-20 lg:w-full items-center justify-between lg:px-16 px-10 flex bg-transparent " + value}>
+                <div className="logo lg:w-1/4  lg:text-4xl md:text-3xl text-xl italic font-extrabold ">
                     <h1 >Book Store</h1>
                 </div>
-                <div className="addCart lg:w-1/3 ">
-                    <img style={{ cursor: "pointer" }} className={'mx-auto flex justify-center lg:h-10 md:h-10 sm:h-8'} onClick={(e) => showCart(e)} src={img} alt="" srcset="" />
+                {color && <input onKeyUp={(e) => Change(e)} onChange={(e)=> setInput(e.target.value)} value={input} className='outline-none py-1 text-black text-lg bg-transparent lg:w-1/4 w-60 h-7 border-2 border-gray-400 rounded-lg px-2 text-md pt-1 bg-gray-100' type="text" placeholder='search...' />}
+                <div className="addCart lg:w-1/4 ">
+                    <img style={{ cursor: "pointer" }} className={'mx-auto flex justify-center lg:h-10 md:h-10 sm:h-8'} onClick={(e) => showCart(e)} src={img} alt="" />
                 </div>
             </div>
-            <div className={"absolute nav z-10 lg:hidden left-0 right-0 text-xl flex flex-col bg-white rounded-md m-4 w-9/10 p-4 justify-around " + display}>
-                <h2 style={{ cursor: "pointer" }} className='self-end' onClick={() => showMenu()} >X</h2>
-                <h2 className='self-center py-2' style={{ cursor: "pointer" }} onClick={() => NavTO('/home')}>Home</h2>
-                <h2 className='self-center py-2' style={{ cursor: "pointer" }} onClick={() => NavTO('engineering')}>Products</h2>
-                <h2 className='self-center py-2' style={{ cursor: "pointer" }} >About</h2>
+            <div className='absolute self-center top-12 mt-3 w-full z-10 mx-auto'>
+                <div className='flex lg:w-1/4 w-60 rounded-md mx-auto self-center bg-gray-500 text-white flex-col z-10'>
+                    {
+                        results && results.map((item) => {
+                            return (
+                                <button onClick={()=>setSelectedBookd(item)} className='outline-none text-semibold hover:text-gray-600 hover:bg-white' key={item._id}>{item.bookName}</button>
+                            );
+                        })
+                    }
+                </div>
             </div>
         </div>
     )
 }
+
 
 export default Header

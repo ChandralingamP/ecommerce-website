@@ -11,7 +11,7 @@ const getItemCount = async (id) => {
     await Cart.findById(id).exec()
         .then((doc) => {
             if (!doc) {console.log(res)}
-            else {  res = doc.count;console.log(doc.count,"////");}
+            else {  res = doc.count;}
         })
         .catch((err) => console.log("when finding err"));
     return res;
@@ -27,7 +27,6 @@ router.route('/clear').delete(()=>{
 router.route('/remove').post(async(req,res)=>{
     const _id = req.body.item._id;
     let count = await getItemCount(_id);
-    console.log(count)
     count -=1;
     if(count == 0){
         Cart.findByIdAndRemove(_id, (err, doc) => {
@@ -55,7 +54,6 @@ router.route('/add').post(async(req, res) => {
     if (count === 1) {
     const newItem = new Cart({_id,bookImg,bookName,bookPublication,category,author,price,sellingPrice,count });
     newItem.save()
-        .then((data) => {console.log(data)})
         .catch(err => {console.log("eerrr"); res.status(400).json("Error : " + err)});
     } else {
         Cart.findByIdAndUpdate(_id, { count :count }).exec()

@@ -2,17 +2,18 @@ const express = require("express")
 const router = express.Router();
 const Books = require('../Models/book.model')
 
-router.route('/').get((req, res) => {
+router.route('/').get((req,res) => {
     Books.find().then(data => res.json(data))
         .catch(err => res.statusCode(400).json('Errors: ' + err));
 });
 
-router.post("/category", async (req, res) => {
-    let category = req.body.category;
-    console.log(category);
-    Books.find({category:category}).then(data => res.json(data))
-        .catch(err => res.statusCode(400).json('Errors: ' + err));
+router.route('/search').post(async (req, res) => {
+    let payload = req.body.payload.trim();
+    let search = await Books.find({ bookName: { $regex: new RegExp('^' + payload + '.*', 'i') } });
+    search = search.slice(0,8);
+    res.send({payload:search});
 });
+
 router.route('/add').post((req,res)=>{
     const bookName = req.body.bookName;
     const bookPublication = req.body.item.publication;

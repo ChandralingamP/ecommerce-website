@@ -1,50 +1,48 @@
 import React, { useEffect, useState, createContext, useContext } from 'react'
 import axios from 'axios'
-const UserContext = createContext();
-function Cart({ show, flag, changeFlag, hideCart }) {
-  const [bookData, setBookData] = useState("");
+import { UserContext, BookContext } from '../UserContext/UserContext';
+function Cart() {
+  const { show, flag, changeFlag,cartData, setCartData, hideCart } = useContext(UserContext);
   const addCart = async (item) => {
-    console.log(item);
     await axios.post("/cart/add", { item: item }).then((res) => res.data).then(data => { changeFlag() });
   }
   const clearCart = async () => {
-    await axios.delete("/cart/clear")
-      .then(() => (changeFlag()));
+    await axios.delete("/cart/clear");
+    changeFlag();
   }
   const removeCart = async (item) => {
-    console.log(item._id);
     await axios.post("/cart/remove", { item: item }).then((res) => res.data).then(data => changeFlag());
   }
   useEffect(() => {
-    axios({ method: 'get', url: 'http://localhost:5000/cart/items' }).then((res) => res.data).then((data) => { setBookData(data) });
+    axios.get('/cart/items/').then((res)=>res.data).then((data)=>setCartData(data));
   }, [flag]);
-  console.log(show);
   const value = show ? 'block' : 'hidden';
   return (
     <div>
       <div className={value + ' fixed top-0 right-0 w-full lg:w-1/4 h-full bg-gray-400 p-4 overflow-auto scrollbar-hide'} >
         <div className="flex pr-2 justify-between">
           <h1 className='font-bold'>Cart Items</h1>
-          <h1 style={{ cursor: "pointer" }} onClick={() => hideCart()} className='font-bold'>X</h1>
+          <button style={{ cursor: "pointer" }} onClick={() => hideCart()} className='outline-none font-bold'>X</button>
         </div>
-        <UserContext.Provider value={bookData}>
+        <BookContext.Provider value={{ cartData, addCart, removeCart, clearCart }}>
           <div className='relative' >
-            <CartItem addCart={addCart} removeCart={removeCart} clearCart={clearCart} />
+            <CartItem />
           </div>
-        </UserContext.Provider>
+        </BookContext.Provider>
       </div>
     </div>
   )
 }
-function CartItem({ addCart, removeCart, clearCart }) {
+
+
+function CartItem() {
   let cost = 0;
-  const bookData = useContext(UserContext);
+  const { cartData, addCart, removeCart, clearCart } = useContext(BookContext);
   useEffect(() => {
-    console.log(bookData);
-  }, [bookData])
+  }, [cartData])
   return (
     <div>
-      {bookData && bookData.map((item, key) => {
+      {cartData && cartData.map((item, key) => {
         cost += item.count * item.price;
         return (
           <div key={key} className="flex justify-between my-4 mx-2">
@@ -64,7 +62,7 @@ function CartItem({ addCart, removeCart, clearCart }) {
       })
       }
       <div className="abolute flex flex-col justify-center">
-        {bookData && <h3 className='self-center'>your total : $<span className=" font-bold">{cost}</span></h3>}
+        {cartData && <h3 className='self-center'>your total : $<span className=" font-bold">{cost}</span></h3>}
         <button onClick={() => clearCart()} className="self-center mt-1 font-bold border-2 w-1/4 bg-gray-200 rounded-md">clear cart</button>
       </div>
     </div>
