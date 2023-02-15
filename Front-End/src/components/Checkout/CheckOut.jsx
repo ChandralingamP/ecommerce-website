@@ -1,30 +1,32 @@
 import "./CheckOut.css";
-import React, { useContext } from "react";
-import { UserContext } from "../UserContext/UserContext";
+import CartItem from '../Cart/CartItem'
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 function CheckOut() {
-  const { cartData } = useContext(UserContext);
+  const nav = useNavigate();
   return (
     <div className="flex flex-row">
       <div className="flex bg-aliceblue flex-col text-black w-3/5 p-8">
         <h1 className="text-xl font-bold">Place your order here!</h1>
-        <div className="Box font-semibold">
-          <h4>Delivery Address</h4>
-          <h4 className="InBox font-semibold"> Change</h4>
+        <div className="Boxflex flex-col p-8 Box">
+          <h4 className=" font-bold">Delivery Address</h4>
+          <p>Chennai Institute Of Technology</p>
+          <p>Sarathy Nagar,kundrathur</p>
+          <p>Chennai - 600069</p>
         </div>
         <div className="order-box font-semibold">
           <h4>ORDER SUMMARY</h4>
-          {/* <h1>kabfakjwb</h1> */}
-          <div className="product-book">
-            {cartData &&
-              cartData.map((item, key) => {
-                <bookCard item={item} key={key} />;
-              })}
+          <div>
+          <CartItem />
           </div>
         </div>
       </div>
       <div className="w-2/5 p-8 text-black font-semibold">
-        <div className="Box font-semibold">
-          <h4>PAYMENT OPTIONS</h4>
+        <div className="Box font-semibold flex flex-row justify-between items-center">
+          <h4>PAYMENT</h4> 
+          <button onClick={() => {alert("Your Products Will Be Delivered Soon....");
+          nav('/')
+        }} className="py-1 text-aliceblue px-5 bg-primary rounded-md">Pay</button>
         </div>
         <div className="Box flex flex-col p-5">
           <div>
