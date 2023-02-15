@@ -18,8 +18,10 @@ connection.once('open',()=>{
 
 const cart = require('./Routes/cart')
 const books = require('./Routes/books')
+const users =require('./Routes/users')
 app.use("/cart",cart);
 app.use("/books",books);
+app.use("/users",users);
 
 app.listen(port,()=>{
     console.log("listinging on port 5000");

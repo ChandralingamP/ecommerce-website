@@ -9,7 +9,8 @@ const booksSchema = new Schema({
     author: { type: String, required: true },
     price: { type: Number, required: true },
     sellingPrice : {type:Number,required:true},
-    bookCount : { type: Number, required: true }
+    bookCount : { type: Number, required: true },
+    count : {type : Number}
 },{
     timestamps : true,
 })

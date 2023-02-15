@@ -1,0 +1,34 @@
+bookName,bookPublication,author,price,sellingPrice,category,bookImg,bookCount,count
+Electrical Engineering ,Pearson,Allan R. Hambley,1500,560,Engineering,book01.jpg,4,1
+Design of Machine Elements,Lakshmi,Vijayaragavan,500,400,Engineering,book02.jpg,7,1
+Engineering Mathematics 2,Mc Graw Hill,Veerarajan,700,500,Engineering,book03.jpg,7,1
+Materials Science,Mc Graw Hill,Rajendran,550,410,Engineering,book04.jpg,9,1
+Information Systems Security,Wiley,Nina Godbole,1200,800,Engineering,book05.jpg,4,1
+Principles of Physics,Wiley,Robert Resnick,1135,880,Engineering,book06.jpg,7,1
+Engineering Chemistry,Dhanpat Rai,Jain,800,500,Engineering,book07.jpg,2,1
+Basic and Applied Soil Mechanics,New Age,A S R Rao,650,640,Engineering,book08.jpg,9,1
+Advanced Accountancy,Margham,T S Reddy & Murthy,500,450,Arts,book09.jpg,4,1
+Cost Accounting,Margham,T S Reddy & Murthy,450,400,Arts,book10.jpg,3,1
+Corporate Accounting,Margham,T S Reddy & Murthy,400,300,Arts,book11.jpg,2,1
+Financial Accounting,Margham,T S Reddy & Murthy,420,300,Arts,book12.jpg,3,1
+Management Accounting ,Margham,T S Reddy & Hariprasad Reddy,380,320,Arts,book13.jpg,5,1
+ Thomas Calculus,Pearson,Joel Hass,999,899,Arts,book14.jpg,4,1
+Financial Management,Mc Graw Hill,Bruce Resnick,845,752,Arts,book15.jpg,6,1
+International Business,Pearson,Sumathi Varma,635,500,Arts,book16.jpg,4,1
+Principles of Marketing,Pearson,Philip Kotler,1250,800,Arts,book17.jpg,10,1
+Elements of Business Law,Sultan chand,N.D.Kapoor,499,515,Arts,book18.jpg,4,1
+Drug Dosages in Children  ,CBS Publishers ,Singh Meharban,350,265,Medical,book19.png,2,1
+Atlas of Human Anatomy,Elsevier,Netter Frank H. MD,2095,1845,Medical,book20.png,9,1
+Comprehensive Ophthalmology,Jaypee Brothers,Khurana AK,1495,1168,Medical,book21.png,10,1
+Textbook of Anesthesia,Jaypee Brothers,Yadav Ajay,550,540,Medical,book22.png,8,1
+Microbiology,Pearson,Claudia Neuhauser,1149,936,Medical,book23.png,3,1
+Textbook of Prosthodontics,Elsevier India,Rangarajan V Dr,1695,1282,Medical,book24.png,2,1
+Class 9 Science Book, Target Publications,Content Team at Target Publications,450,418,Cbse,book25.png,5,1
+Handbook of Biology,Arihant Publishers, Juvenile Nonfiction,325,247,Cbse,book26.png,9,1
+ENGLISH GRAMMAR CLASS 5 ,PRACHI INDIA PVT. LTD,Jain.DR.D.K Sharma,360,315,Cbse,book27.png,10,1
+Shortcuts in Reasoning , Disha Publication,Disha Publication,125,120,Competitive,book28.png,5,1
+Vedic Mathematics,Arihant Publishers,Shastri Ramnandan,120,102,Competitive,book29.png,5,1
+Harry Potter and the Philosopher's Stone,Bloomsbury Publishing PLC,Rowling J. K,499,450,Story,book30.png,10,1
+Buddha Tales,Maple Press,Maple Press,65,65,Story,book31.png,8,1
+The Blue Umbrella,Rupa & Co,Bond Ruski,100,90,Story,book32.png,5,1
+Quantitative Aptitude,Disha Publication,Disha Publication,150,150,Competitive,book33.png,3,1

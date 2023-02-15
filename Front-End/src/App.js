@@ -1,68 +1,124 @@
-import React, { useState, useEffect } from 'react'
-import Home from './components/HomePage/Home'
-import axios from 'axios'
-import Books from './components/Books/Books'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Admin from './components/Admin/Admin'
-import { UserContext } from './components/UserContext/UserContext'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Books from "./components/Books/Books";
+import CheckOut from "./components/Checkout/CheckOut";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Admin from "./components/Admin/Admin";
+import { UserContext } from "./components/UserContext/UserContext";
+import { onAuthStateChanged } from "firebase/auth";
+import Login from "./components/Logins/Login";
+import Signup from "./components/Signups/Signup";
+
+import { auth } from "./firebase";
 function App() {
+  // const [userId,setUserId] = useState;
   const [flag, setFlag] = useState(0);
   const [show, setShow] = useState("");
   const [books, setBooks] = useState("");
+  const [userId, setUserId] = useState("");
+  // const [finalCart,setFinalCart] = useState([]);
   const [searchBook, setSearchBook] = useState("");
   const [bookData, setBookData] = useState("");
-  const [cartData, setCartData] = useState("");
+  const [cartData, setCartData] = useState([]);
   const fetchBooks = async () => {
-    await axios.get('/books').then((res) => res.data).then((data) => setBooks(data));
-    await axios.get('/cart/items').then((res) => res.data).then((data) => setCartData(data));
-  }
+    let id = localStorage.getItem("userId");
+    setUserId(id);
+    await axios
+      .get("http://localhost:5000/books")
+      .then((res) => res.data)
+      .then((data) => setBooks(data));
+  };
   useEffect(() => {
-    fetchBooks();
-  }, [])
-  const getBooks = async (type, min, max) => {
-    if (type === 'home') {
-      setBookData(books.slice(1, 9));
-    } else if (type === 'All') {
-      setBookData(books.slice(1, 13));
+    if (localStorage.getItem("uid")) {
+      setUserId(localStorage.getItem("uid"));
+      console.log(userId);
+      fetchBooks();
     }
-    else {
+  }, []);
+  const getBooks = async (type, min, max) => {
+    console.log(type);
+    if (type === "") {
+      setBookData(books.slice(1, 17));
+    } else {
       const newBookData = books.filter(
-        (book) => ((book.category === type) && (book.sellingPrice > min) && (book.sellingPrice < max))
+        (book) =>
+          book.category === type &&
+          book.sellingPrice > min &&
+          book.sellingPrice < max
       );
       setBookData(newBookData);
     }
-  }
+  };
+  const getCartData = async () => {
+    let uri = "http://localhost:5000/cart/items";
+    console.log(userId, uri);
+    await axios
+      .post(uri, { userId: userId })
+      .then((res) => res.data)
+      .then((data) =>{ setCartData(data);console.log(data);})
+      .catch((err) => console.log(err));
+  };
   const showCart = () => {
     setShow("showCart");
-  }
+  };
   const hideCart = () => {
+    axios.post("http://localhost:5000/cart/update", {
+      id: userId,
+      cartData: [],
+    });
     if (show) {
       setShow("");
     }
-  }
+  };
   const changeFlag = () => {
     setFlag((flag + 1) % 2);
-  }
+  };
   return (
-    <div className='lg:w-100'>
-      <UserContext.Provider value={{ show, flag, cartData, setCartData, searchBook, setSearchBook, getBooks, setBooks, books, bookData, setBookData, showCart, hideCart, changeFlag }}>
+    <div className="w-screen bg-aliceblue">
+      <UserContext.Provider
+        value={{
+          show,
+          flag,
+          cartData,
+          userId,
+          setUserId,
+          setCartData,
+          searchBook,
+          setSearchBook,
+          getBooks,
+          getCartData,
+          setBooks,
+          books,
+          bookData,
+          setBookData,
+          showCart,
+          hideCart,
+          changeFlag,
+        }}
+      >
         <Router>
           <Routes>
-            <Route key="home" index element={<Home />}></Route>
             <Route path="admin" element={<Admin />} />
-            <Route key='all' path="all" element={<Books />} />
-            <Route key='engineering' path="engineering" element={<Books />} />
-            <Route key='arts' path="arts" element={<Books />} />
-            <Route key='medical' path="medical" element={<Books />} />
-            <Route key='cbse' path="cbse" element={<Books />} />
-            <Route key='stateBoard' path="stateboard" element={<Books />} />
-            <Route key='competitive' path="competitive" element={<Books />} />
-            <Route key='story' path="story" element={<Books />} />
+            <Route key="home" index path="/" element={<Books />} />
+            <Route key="engineering" path="engineering" element={<Books />} />
+            <Route key="arts" path="arts" element={<Books />} />
+            <Route key="medical" path="medical" element={<Books />} />
+            <Route key="cbse" path="cbse" element={<Books />} />
+            <Route key="stateBoard" path="stateboard" element={<Books />} />
+            <Route key="competitive" path="competitive" element={<Books />} />
+            <Route key="story" path="story" element={<Books />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="login" element={<Login />} />
+            <Route
+              key="checkout"
+              path="checkout"
+              element={<CheckOut />}
+            ></Route>
           </Routes>
         </Router>
       </UserContext.Provider>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
