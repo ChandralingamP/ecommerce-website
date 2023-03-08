@@ -53,7 +53,7 @@ const Filter = ({ priceRange, path, NavTO }) => {
           navLinks.map((item, key) => {
             const value = path.slice(1) === item.toLowerCase() ? 'lg:bg-blue-600 text-aliceblue' : 'text-black';
             return (
-              <button key={key} className="outline-none w-full"  onClick={() => NavTO(item)}><p className={'hover:bg-blue-600 hover:text-aliceblue py-2 font-semibold px-4 text-lg ml-4 mt-1 self-start ' + value}>{item}</p></button>
+              <button key={key} className="outline-none items-start flex w-full align-start w-full"  onClick={() => NavTO(item)}><p className={'hover:bg-blue-600 w-full items-start flex w-full align-start0 hover:text-aliceblue py-2 font-semibold px-4 text-lg ml-4 mt-1 self-start ' + value}>{item}</p></button>
             );
           })
         }

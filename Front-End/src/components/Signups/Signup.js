@@ -10,7 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const addUser = async(id) =>{
     try{
-      await axios.post('http://localhost:5000/users/add',{id:id, userName : user,email:email,password:password });
+      await axios.post('http://localhost:5051/users/add',{id:id, userName : user,email:email,password:password });
     }catch(err){
       console.log(err);
     }

@@ -17,7 +17,7 @@ function Card({ item }) {
       });
       setCartData(newData);
       await axios
-        .post("http://localhost:5000/cart/update", {
+        .post("http://localhost:5051/cart/update", {
           id: userId,
           cartItems: newData,
         })
@@ -27,7 +27,7 @@ function Card({ item }) {
       setCartData(newData);
       console.log(newData);
       await axios
-        .post("http://localhost:5000/cart/update", {
+        .post("http://localhost:5051/cart/update", {
           id: userId,
           cartItems: newData,
         })

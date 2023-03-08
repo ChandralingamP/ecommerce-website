@@ -5,18 +5,14 @@ import CheckOut from "./components/Checkout/CheckOut";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Admin from "./components/Admin/Admin";
 import { UserContext } from "./components/UserContext/UserContext";
-import { onAuthStateChanged } from "firebase/auth";
 import Login from "./components/Logins/Login";
 import Signup from "./components/Signups/Signup";
 
-import { auth } from "./firebase";
 function App() {
-  // const [userId,setUserId] = useState;
   const [flag, setFlag] = useState(0);
   const [show, setShow] = useState("");
   const [books, setBooks] = useState("");
   const [userId, setUserId] = useState("");
-  // const [finalCart,setFinalCart] = useState([]);
   const [searchBook, setSearchBook] = useState("");
   const [bookData, setBookData] = useState("");
   const [cartData, setCartData] = useState([]);
@@ -24,7 +20,7 @@ function App() {
     let id = localStorage.getItem("userId");
     setUserId(id);
     await axios
-      .get("http://localhost:5000/books")
+      .get("http://localhost:5051/books")
       .then((res) => res.data)
       .then((data) => setBooks(data));
   };
@@ -50,7 +46,7 @@ function App() {
     }
   };
   const getCartData = async () => {
-    let uri = "http://localhost:5000/cart/items";
+    let uri = "http://localhost:5051/cart/items";
     console.log(userId, uri);
     await axios
       .post(uri, { userId: userId })
@@ -62,7 +58,7 @@ function App() {
     setShow("showCart");
   };
   const hideCart = () => {
-    axios.post("http://localhost:5000/cart/update", {
+    axios.post("http://localhost:5051/cart/update", {
       id: userId,
       cartData: [],
     });

@@ -7,6 +7,18 @@ router.route('/').get((req,res) => {
         .catch(err => res.statusCode(400).json('Errors: ' + err));
 });
 
+router.route('/category/:type/:min/:max').get(async(req,res)=>{
+    try{
+        const type = req.params.type;
+        const min = req.params.min;            
+        const max = req.params.max;
+        const data = await Books.find({category :type , sellingPrice: { $gte: min, $lte: max }});
+        res.status(200).json(data);
+    }catch(err){
+        res.status(400).json(err);
+    }
+})
+
 router.route('/search').post(async (req, res) => {
     let payload = req.body.payload.trim();
     let search = await Books.find({ bookName: { $regex: new RegExp('^' + payload + '.*', 'i') } });
