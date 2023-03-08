@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 // const uri = "mongodb://127.0.0.1:27017/BookStore?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2";
-const uri = "mongodb://127.0.0.1:27023/BookStore?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2";
+const uri = "mongodb://127.0.0.1:27023/BookStore";
 mongoose.connect(uri);
 mongoose.set('strictQuery', false);
 const connection = mongoose.connection;
