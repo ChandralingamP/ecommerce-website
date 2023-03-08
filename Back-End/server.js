@@ -20,8 +20,8 @@ connection.once('open',()=>{
 const cart = require('./Routes/cart')
 const books = require('./Routes/books')
 const users =require('./Routes/users')
-const tags = require('./Routes/tags')
-app.use("/tags",tags)
+// const tags = require('./Routes/tags')
+// app.use("/tags",tags)
 app.use("/cart",cart);
 app.use("/books",books);
 app.use("/users",users);
